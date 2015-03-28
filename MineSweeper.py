@@ -1,86 +1,14 @@
+#main Class
+#MineSweeper in Python
+#Thong Dao
+
 import csv;
 import turtle;
 import random;
-
+from Mine import Mine;
+from Sprite import Sprite;
+from SafeSpot import SafeSpot;
 turtle.tracer(0);
-class Sprite:
-
-    def __init__(self, aList):
-        self.pixels = aList;
-
-    def draw(self,turt,x,y):
-        move = y;
-        turt.goto(x,y);
-        for i in range (len(self.pixels)):
-            for j in range (len(self.pixels[i])):
-                turt.pendown();
-                if(self.pixels[i][j] != ' '):
-                    turt.pencolor(self.pixels[i][j]);
-                turt.forward(1);
-            move -= 1;
-            turt.goto(x,move);
-            
-class Mine:
-    def __init__(self,sprite):
-        self.drawn = False;
-        self.sprite = sprite;
-        self.red = False;
-
-    def draw(self,turt,x,y):
-        if(not self.drawn):
-            if(self.red):
-                turt.goto(x, y);
-                turt.fillcolor("red");
-                turt.begin_fill();
-                self.sprite.draw(turt,x,y);
-                turt.end_fill();
-            else:
-                self.sprite.draw(turt,x,y);
-            self.drawn = True;
-
-    def __str__(self):
-        return "BOOM";
-
-    def __repr__(self):
-        res = self.__str__();
-        return res;
-
-class SafeSpot:
-    def __init__(self,numAdjacent,sprite):
-        self.sprite = sprite;
-        self.numAdjacent = numAdjacent;
-        self.drawn = False;
-        self.count = 0;
-
-    def draw(self,turt,x,y):
-        if(self.sprite != None):
-            if( not self.drawn):
-                self.sprite.draw(turt,x,y);
-                self.drawn = True;
-        else:
-            turt.penup();
-            turt.goto(x, y);
-            turt.pendown();
-            turt.fillcolor("grey")
-            turt.begin_fill()
-            for i in range(2):
-                turt.forward(25);
-                turt.right(90);
-                turt.forward(25);
-                turt.right(90);
-            turt.end_fill()
-
-    def __str__(self):
-        res = "";
-        if(self.drawn):
-            res = "<" + str(self.numAdjacent) + ">";
-        else:
-            res = str(self.numAdjacent);
-        return res;
-
-    def __repr__(self):
-        res = self.__str__();
-        return res;
 
 class MineSweeper:
     def __init__(self,width,height,prob,pixelCSV):
@@ -363,7 +291,8 @@ class MineSweeper:
                     yloc = self.startY - (25*i);
                     self.grid[i][j].draw(self.drawer,xloc, yloc);
 
-MineSweeper(20,20, 0.2, 'sprites.csv');
+#call the main method
+#MineSweeper(20,20, 0.2, 'sprites.csv');
 
 
 
